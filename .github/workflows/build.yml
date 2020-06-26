@@ -20,7 +20,6 @@ jobs:
       - name: Run lint
         run: npm run lint
 
-
         # shell: bash
         # run: |
         #   if [[ $GITHUB_BASE_REF ]]
@@ -34,6 +33,9 @@ jobs:
         #   npm run affected:lint -- --base=$NX_BASE
       - name: Test
         run: npm run test
+
+      - name: Test
+        run: npm run e2e
 
       - name: Build
         run: npm run build
