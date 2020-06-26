@@ -1,0 +1,39 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Install
+        run: npm install
+
+      - name: Run lint
+        run: npm lint
+
+        # shell: bash
+        # run: |
+        #   if [[ $GITHUB_BASE_REF ]]
+        #   then
+        #     export NX_BASE=remotes/origin/$GITHUB_BASE_REF
+        #   else
+        #     export NX_BASE=$(git rev-parse HEAD~1)
+        #   fi
+        #   echo "Base => $NX_BASE"
+        #   npm run format:check -- --base=$NX_BASE
+        #   npm run affected:lint -- --base=$NX_BASE
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm build
